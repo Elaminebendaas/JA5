@@ -79,8 +79,41 @@ private boolean shouldVisit(int row, int col) {
 	
 	@Override
 	public Deque<Pixel> blobIterative(int row, int col) {
-	return null;
-	}
+        // empty lists
+        Deque<Pixel> blobList = new ArrayDeque<>();
+        Deque<Pixel> workingList = new ArrayDeque<>();
+        // add pixel to workingList
+        workingList.addLast(new Pixel(row, col));
+
+        // order or items to visit
+        int[][] directions = new int[][] {
+            {0, -1}, // left means decreasing the column value
+            {+1, 0}, // down means increasing the row value
+            {0, +1}, // right means increasing the column value
+            {-1, 0} // up means decreasing the row value
+        };
+
+        // while workingList is not empty
+        while (!workingList.isEmpty()) {
+            // remove the pixel from the working list
+            Pixel p = workingList.removeFirst();
+            // if p has ink and has not been visited
+            if (p.hasInk() && !p.visited()) {
+                // add p to back of blob lists
+                blobList.addLast(p);
+                // for each immediate neighbor q of p
+                for (int[] dir : directions) {
+                    int qRow = row + dir[0];
+                    int qCol = col + dir[1];
+                    // add q to workingList
+                    workingList.addLast(new Pixel(qRow, qCol));
+                }
+            }
+        }
+
+        // output the blobList
+        return blobList;
+    }
 	}
 
 	
