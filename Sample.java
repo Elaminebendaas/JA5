@@ -2,8 +2,7 @@ import java.util.Deque;
 public class Sample{
 
 	public static Blobs newBlob(){
-		return new MyBlobsSol();
-		//return new MyBlobs();
+		return new MyBlobs();
 	} 
 
 	public static void main(String[] args){

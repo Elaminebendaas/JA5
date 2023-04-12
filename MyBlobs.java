@@ -29,8 +29,59 @@ public class MyBlobs extends Blobs{
 	public MyBlobs(){}
 	///////////////////////////////////////////////////////////////////////	
 	///////////////////////////////////////////////////////////////////////	
-
+	@Override
+	public void blobRecursiveHelper(int row, int col, Deque<Pixel> blobSoFar) {
+	if (shouldVisit(row, col)) {
+	// if inside this loop, means it has ink but not visited yet
+	Pixel currPixel = image.getPixel(row, col);
+	// so mark it as visited
+	currPixel.setVisited(true);
+	// add it to the blob
+	blobSoFar.addLast(currPixel);
+	int currRow = currPixel.getRow();
+	int currCol = currPixel.getCol();
+	// and then visited all neighbours of current pixel
+	// who satisfy shouldVisit(neighbour coordinates)
+	
+	//up
+	if (shouldVisit(currRow - 1, currCol))
+	blobRecursiveHelper(currRow - 1, currCol, blobSoFar);
+	//right
+	if (shouldVisit(currRow, currCol + 1))
+	blobRecursiveHelper(currRow, currCol + 1, blobSoFar);
+	//down
+	if (shouldVisit(currRow + 1, currCol))
+	blobRecursiveHelper(currRow + 1, currCol, blobSoFar);
+	//left
+	if (shouldVisit(currRow, currCol - 1))
+	blobRecursiveHelper(currRow, currCol - 1, blobSoFar);
+	}
+	}
+	/**
+* I'VE MODIFIED THIS FUNCTION
+*
+* For a given (row,col), this function check if this position is
+* a valid cell/pixel in the image and if it's not, return false.
+* If valid, should visit only if pixel at row,col hasInk and is
+* NOT visited yet;
+*
+* @param row
+* @param col
+* @return true if this pixel at row,col should be visited else false
+*/
+private boolean shouldVisit(int row, int col) {
+	if (0 <= row && row < image.rows && 0 <= col && col < image.cols) {
+	Pixel pixel = image.getPixel(row, col);
+	return pixel.hasInk() && !pixel.visited();
+	}
+	return false;
+	}
+	
+	@Override
+	public Deque<Pixel> blobIterative(int row, int col) {
+	return null;
+	}
+	}
 
 	
 	
-}
