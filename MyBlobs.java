@@ -78,7 +78,7 @@ private boolean shouldVisit(int row, int col) {
 	}
 	
 	@Override
-	public Deque<Pixel> blobIterative(int row, int col) {
+    public Deque<Pixel> blobIterative(int row, int col) {
         // empty lists
         Deque<Pixel> blobList = new ArrayDeque<>();
         Deque<Pixel> workingList = new ArrayDeque<>();
